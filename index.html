@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management</title>
+    <style>
+        
+
+body, h1, h2, h3, p {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+header {
+    background-color: #871343;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+section {
+    flex: 1;
+    margin: 1rem;
+    padding: 40px;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #333;
+    color: white;
+}
+
+input[type="text"], button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 90px;
+}
+
+button {    
+    background-color: #1b78d5;
+    color: white;
+    border-radius: 9px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+#posts-list, #tasks-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#posts-list li, #tasks-list li {
+    margin: 10px 0;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Manage Your Projects Here</h1>
+    </header>
+    <main>
+        <section class="social-media">
+            <h2>Posts</h2>
+            <input type="text" id="post-input" placeholder="Create a new post...">
+            <button id="post-button">Post</button>
+            <div id="posts-list"></div>
+        </section>
+
+        <section class="task-assignment">
+            <h2>Task Assignment</h2>
+            <input type="text" id="task-input" placeholder="Create a new task...">
+            <input type="text" id="assignee-input" placeholder="Assign to...">
+            <button id="task-button">Create Task</button>
+            <ul id="tasks-list"></ul>
+        </section>
+    </main> 
+    <script>
+        // Sample data for social media posts and tasks
+const socialMediaPosts = [];
+const tasks = [];
+
+// Function to display social media posts
+function displaySocialMediaPosts() {
+    const postsList = document.getElementById("posts-list");
+
+    // Clear the previous list
+    postsList.innerHTML = "";
+
+    socialMediaPosts.forEach((post, index) => {
+        const postItem = document.createElement("li");
+        postItem.textContent = `Post ${index + 1}: ${post}`;
+        postsList.appendChild(postItem);
+    });
+}
+
+function displayTaskAssignment() {
+    const tasksList = document.getElementById("tasks-list");
+
+    tasksList.innerHTML = "";
+
+    tasks.forEach((task, index) => {
+        const taskItem = document.createElement("li");
+        taskItem.textContent = `Task ${index + 1}: ${task.title} (Assigned to: ${task.assignedTo})`;
+        tasksList.appendChild(taskItem);
+    });
+}
+
+const postButton = document.getElementById("post-button");
+postButton.addEventListener("click", () => {
+    const postInput = document.getElementById("post-input");
+    const postContent = postInput.value;
+
+    if (postContent.trim() !== "") {
+        socialMediaPosts.push(postContent);
+        postInput.value = "";
+        displaySocialMediaPosts();
+    }
+});
+
+const taskButton = document.getElementById("task-button");
+taskButton.addEventListener("click", () => {
+    const taskInput = document.getElementById("task-input");
+    const assigneeInput = document.getElementById("assignee-input");
+    const taskTitle = taskInput.value;
+    const assignedTo = assigneeInput.value;
+
+    if (taskTitle.trim() !== "" && assignedTo.trim() !== "") {
+        tasks.push({ title: taskTitle, assignedTo });
+        taskInput.value = "";
+        assigneeInput.value = "";
+        displayTaskAssignment();
+    }
+});
+
+displaySocialMediaPosts();
+displayTaskAssignment();
+    </script>
+</body>
+</html>
